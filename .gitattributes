@@ -1,0 +1,4 @@
+# Keep line endings consistent regardless of the machine that checks out.
+* text=auto eol=lf
+*.png binary
+*.jpg binary

@@ -1,0 +1,8 @@
+# MkDocs build output (built by the GitHub Action, not committed)
+/site/
+
+# Python / editor noise
+__pycache__/
+.venv/
+.DS_Store
+Thumbs.db

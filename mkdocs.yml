@@ -1,0 +1,101 @@
+site_name: CloudInfra Proxy Manager Documentation
+site_description: >-
+  CloudInfra Proxy Manager - a management, analytics and policy layer for Squid
+  Proxy on AWS, Azure and Google Cloud. See your traffic, write readable access
+  rules, and apply configuration changes that roll themselves back if the proxy
+  does not come up healthy.
+site_author: InfraSOS FZCO
+site_url: https://proxydocs.cloudinfrastructureservices.co.uk/
+copyright: Copyright &copy; 2026 InfraSOS FZCO - CloudInfra Proxy Manager
+
+repo_url: https://github.com/CLOUDCIS/CloudInfra-Proxy-Manager
+repo_name: CLOUDCIS/CloudInfra-Proxy-Manager
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://cloudinfrastructureservices.co.uk/
+      name: Cloud Infrastructure Services
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Deploy the Image: getting-started/deploy.md
+      - Your First 10 Minutes: getting-started/quickstart.md
+      - Pointing Clients at the Proxy: getting-started/clients.md
+  - User Guide:
+      - Dashboard: guide/dashboard.md
+      - Live Traffic: guide/live-traffic.md
+      - Analytics: guide/analytics.md
+      - Access Rules: guide/access-rules.md
+      - URL Filtering: guide/url-filtering.md
+      - Microsoft 365 Endpoints: guide/microsoft-365.md
+      - Directory Authentication: guide/directory-authentication.md
+      - Proxy Settings: guide/proxy-settings.md
+      - Applying Changes: guide/applying-changes.md
+      - Health: guide/health.md
+      - Logs: guide/logs.md
+      - Backup & Restore: guide/backup-restore.md
+      - Administration: guide/administration.md
+  - Reference:
+      - Configuration File: reference/configuration.md
+      - Generated squid.conf: reference/generated-config.md
+      - Traffic Log Format: reference/log-format.md
+      - Ports & Security Groups: reference/ports.md
+      - REST API: reference/api.md
+  - About:
+      - Architecture: about/architecture.md
+      - Security Model: about/security-model.md
+      - Roadmap: about/roadmap.md
+      - FAQ: about/faq.md
+  - Support: support.md
