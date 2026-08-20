@@ -61,10 +61,9 @@ when it is fixed unless you would rather we did not.
 
 ## Feature requests
 
-Feature requests go to the same place and are genuinely read — most of the
-[roadmap](about/roadmap.md) came from customers. Saying which of your problems a
-feature would solve is more useful than describing the feature, because there is
-often a way to solve it today.
+Feature requests go to the same place and are genuinely read. Saying which of
+your problems a feature would solve is more useful than describing the feature,
+because there is often a way to solve it today.
 
 ---
 

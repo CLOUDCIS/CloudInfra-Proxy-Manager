@@ -76,7 +76,7 @@ limitation to be removed.
 Support requests and feature requests go to the same place, and both are read.
 
 If you are asking for something on this page, saying so moves it up. If you are
-asking for something that is not, that is more useful still — most of this list
-came from customers.
+asking for something that is not, that is more useful still — it is the requests
+we have not thought of that change this list.
 
 [:material-arrow-right: Contact us](../support.md)
