@@ -175,7 +175,7 @@ Three tiers with separate retention: full request detail for 3 days, per-minute
 summaries for 7 days, hourly summaries for 90 days. All adjustable, with a hard
 size cap alongside so a traffic spike cannot fill the disk inside the window.
 
-[:material-arrow-right: Data & storage](../guide/administration.md#data--storage)
+[:material-arrow-right: Data & storage](../guide/administration.md#data-storage)
 
 ### Does traffic data leave the appliance?
 

@@ -40,6 +40,13 @@ If you mean the whole site, use the leading dot. A list of bare hostnames will
 quietly fail to block the `www.` version, which is the most common way a
 blocklist appears not to work.
 
+!!! info "Domains, not paths"
+    Lists match on the hostname. Blocking `example.com/one-section` is not
+    possible for HTTPS sites, because the path is inside the encrypted session
+    and never reaches the proxy — see
+    [HTTPS and CONNECT](../squid/https-and-connect.md#what-this-means-for-filtering).
+    This is the second most common reason a list appears not to work.
+
 ### Network entries
 
 ```text

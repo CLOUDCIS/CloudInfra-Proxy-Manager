@@ -111,3 +111,10 @@ and the console tells you so before you apply.
 - [Deploy the image](../getting-started/deploy.md) — placement and sizing
 - [Pointing clients at the proxy](../getting-started/clients.md) — the client side
 - [Security model](../about/security-model.md) — what is protecting what
+
+Per-cloud guidance, including egress addresses, metadata exclusions and the
+mistakes each platform invites:
+
+- [AWS networking](../getting-started/networking-aws.md)
+- [Azure networking](../getting-started/networking-azure.md)
+- [Google Cloud networking](../getting-started/networking-gcp.md)

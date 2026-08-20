@@ -83,7 +83,7 @@ Analytics live in their own database file so an oversized or corrupted traffic
 store can be removed without touching policies, audit history or configuration
 versions.
 
-The size cap is what age-based [retention](../guide/administration.md#data--storage)
+The size cap is what age-based [retention](../guide/administration.md#data-storage)
 cannot provide: a traffic spike can fill a volume well inside the retention
 window. Analytics degrading is always preferable to a full disk stopping the
 proxy.

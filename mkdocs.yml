@@ -73,6 +73,10 @@ nav:
       - Deploy the Image: getting-started/deploy.md
       - Your First 10 Minutes: getting-started/quickstart.md
       - Pointing Clients at the Proxy: getting-started/clients.md
+      - Cloud Networking:
+          - AWS: getting-started/networking-aws.md
+          - Azure: getting-started/networking-azure.md
+          - Google Cloud: getting-started/networking-gcp.md
   - User Guide:
       - Dashboard: guide/dashboard.md
       - Live Traffic: guide/live-traffic.md
@@ -87,6 +91,13 @@ nav:
       - Logs: guide/logs.md
       - Backup & Restore: guide/backup-restore.md
       - Administration: guide/administration.md
+  - Squid Configuration:
+      - Configuring Squid Directly: squid/index.md
+      - HTTPS and CONNECT: squid/https-and-connect.md
+      - Authentication Backends: squid/authentication-backends.md
+      - Custom Block Page: squid/block-page.md
+      - IPv6: squid/ipv6.md
+      - High Availability: squid/high-availability.md
   - Reference:
       - Configuration File: reference/configuration.md
       - Generated squid.conf: reference/generated-config.md
@@ -98,4 +109,6 @@ nav:
       - Security Model: about/security-model.md
       - Roadmap: about/roadmap.md
       - FAQ: about/faq.md
-  - Support: support.md
+  - Support:
+      - Troubleshooting: troubleshooting.md
+      - Getting Help: support.md

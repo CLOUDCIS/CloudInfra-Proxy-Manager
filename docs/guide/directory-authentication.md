@@ -41,6 +41,11 @@ Three consequences worth knowing:
 | **Microsoft Entra Domain Services** | The managed domain that exposes LDAP for Microsoft 365 identities |
 | **OpenLDAP** | And its derivatives |
 
+Squid also ships helpers for **RADIUS** and for a **local password file**. The
+console does not manage those, but they are installed and can be configured by
+hand — see [Authentication Backends](../squid/authentication-backends.md), which
+also explains why only one backend can be active at a time.
+
 ### Microsoft 365 and Entra ID
 
 This is the point that causes the most confusion, so it is worth stating

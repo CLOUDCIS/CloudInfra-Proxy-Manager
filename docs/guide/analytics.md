@@ -13,7 +13,7 @@ Presets cover the common cases — last 24 hours, 7 days, 30 days, 90 days. The
 *"what happened during the outage last Tuesday afternoon"* is not a preset.
 
 How far back you can go depends on your
-[retention settings](administration.md#data--storage).
+[retention settings](administration.md#data-storage).
 
 ## The tabs
 
@@ -106,7 +106,7 @@ is why it has the shortest window.
 
 All three are adjustable.
 
-[:material-arrow-right: Retention settings](administration.md#data--storage)
+[:material-arrow-right: Retention settings](administration.md#data-storage)
 
 ## Related
 

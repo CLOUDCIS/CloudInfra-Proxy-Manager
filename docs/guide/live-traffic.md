@@ -85,7 +85,7 @@ Full request detail is kept for a shorter period than the summarised history, so
 very old individual requests may no longer be retrievable even though they are
 still counted in Analytics. The retention window is yours to set.
 
-[:material-arrow-right: Retention settings](administration.md#data--storage)
+[:material-arrow-right: Retention settings](administration.md#data-storage)
 
 ## Related
 
