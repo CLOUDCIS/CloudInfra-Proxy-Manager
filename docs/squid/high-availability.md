@@ -37,11 +37,19 @@ proving Squid is healthy. Prefer an HTTP check where your balancer supports one:
 |---|---|
 | Protocol | HTTP |
 | Port | 3128 |
-| Path | `http://127.0.0.1/squid-internal-static/icons/SN.png` |
+| Path | `/squid-internal-static/icons/SN.png` |
 | Expected | 200 |
 
-That path is served by Squid itself and needs no upstream connectivity, so it
-distinguishes "Squid is running" from "the internet is reachable".
+Squid serves that file itself and needs no upstream connectivity to do it, so
+the check distinguishes "Squid is running" from "the internet is reachable".
+
+!!! note "Why a `squid-internal-static` path and not `squid-internal-mgr`"
+    Squid rewrites `/squid-internal-static/` requests to its own hostname
+    automatically, so a health check that arrives addressed to the instance's
+    address is still served. Management reports under `/squid-internal-mgr/` get
+    no such rewrite — they must name the proxy's own `visible_hostname` and
+    port, or Squid forwards them as ordinary requests and they fail. See
+    [Troubleshooting](../troubleshooting.md#reading-cache-manager-by-hand).
 
 Allow the balancer's health-check source ranges to reach port 3128 alongside
 your client networks.

@@ -184,11 +184,33 @@ sudo squid -k reconfigure              # apply without dropping connections
 sudo squid -k rotate                   # rotate logs now
 squid -v | head -1                     # version and build options
 
-squidclient -h 127.0.0.1 mgr:info      # runtime statistics
-
 sudo tail -f /var/log/squid/access.log
 sudo tail -f /var/log/squid/cache.log  # Squid's own diagnostics
 ```
+
+### Reading Cache Manager by hand
+
+Cache Manager carries the runtime statistics — connection counts, hit ratios and
+service times — that the [Dashboard](guide/dashboard.md) and
+[Health](guide/health.md) are built on.
+
+!!! warning "`squidclient` is not on this image"
+    It was removed in Squid 7. Tutorials that reach for `squidclient mgr:info`
+    predate that; use `curl` through the proxy instead.
+
+```bash
+curl -s -x 127.0.0.1:3128 \
+  "http://$(awk '$1=="visible_hostname"{print $2}' /etc/squid/squid.conf):3128/squid-internal-mgr/info"
+```
+
+The URL has to name the proxy's own `visible_hostname` and port. Squid treats a
+`/squid-internal-mgr/` path as a management request only when it is addressed to
+*this* proxy. Ask for `http://127.0.0.1/squid-internal-mgr/info` instead and the
+request is allowed, then forwarded as an ordinary request to `127.0.0.1:80`,
+where nothing is listening — so you get a Squid error page and it looks like a
+broken cache manager.
+
+Replace `info` with `active_requests`, `counters` or `5min` for other reports.
 
 ## What to send us
 
