@@ -1,12 +1,15 @@
 # Roadmap
 
-What is planned, and what is deliberately not. Priorities move with customer
-demand — if something here matters to you, [tell us](../support.md), because
-that is largely how the order gets decided.
+What is planned, and what is deliberately not. If something here matters to
+you, [tell us](../support.md) — that is how the order gets decided.
 
-!!! note "No dates"
+!!! note "No dates, and no false certainty"
     We would rather say what is being worked on than commit to dates we would
     then have to defend. Nothing here is a contractual commitment.
+
+    The ordering below is our judgement about what would be most useful, not a
+    measurement of what has been asked for. Telling us we have it wrong is the
+    single most useful thing you can do with this page.
 
 ## Being considered next
 
@@ -48,6 +51,75 @@ transport rather than a new data model.
 **Kerberos and Negotiate authentication.** Single sign-on for domain-joined
 clients, so users are not prompted at all. Squid ships the helper; it needs
 keytab management the console does not have yet.
+
+## Squid features the console does not manage
+
+Squid can do a great deal that this console does not expose. That is deliberate
+— every setting we surface is one we then have to validate, document, roll back
+safely and support. But it is worth being explicit about what is available
+underneath, because anything Squid supports can be configured by hand in
+`/etc/squid/local.conf`, which the console never overwrites.
+
+| Capability | Available on the appliance? | Console support |
+|---|---|---|
+| **Time-based access rules** | Yes | Planned — see above |
+| **Hiding internal client addresses** | Partly | Planned |
+| **URL rewriting and redirection** | Yes | Not planned as a generic feature |
+| **ICAP / eCAP content adaptation** | **No — needs a rebuild** | Under consideration |
+| **Transparent interception** | Partly | Not planned for cloud |
+| **Reverse proxy and load balancing** | Yes | Not planned — different product |
+
+### Hiding internal client addresses
+
+Squid adds an `X-Forwarded-For` header carrying the internal address of the
+client that made each request, which is then visible to every site your users
+visit. That is information disclosure some organisations care about and others
+rely on for their own logging.
+
+Squid's `forwarded_for` directive can delete or truncate it, and needs no
+special build. A console setting for it is a small piece of work.
+
+Stripping *arbitrary* headers is a different matter: it needs
+`--enable-http-violations`, which this image is not built with, and Squid's own
+documentation warns that doing so violates the HTTP standard and "could make you
+liable for problems which it causes."
+
+### ICAP and eCAP
+
+The protocols for handing traffic to an external malware scanner, DLP system or
+content filter before it reaches the user.
+
+This image is **not currently built with ICAP support**, so it cannot be enabled
+by configuration alone. We are considering adding the build option at the next
+image release — even without console support, that would let anyone with an
+existing ICAP appliance wire it up in `local.conf`. If you have one, telling us
+would move this along considerably.
+
+### Transparent interception
+
+Intercepting traffic without configuring clients, via TPROXY or WCCP.
+
+The appliance is built with the Linux netfilter support this needs, but the
+approach fits cloud deployments poorly: the proxy must become the default route
+for your clients, which on AWS means a Gateway Load Balancer or route-table
+changes — more work than configuring the clients, not less.
+
+There is a second problem worth knowing about. Intercepted connections carry no
+`CONNECT` request, so Squid has no hostname to match on and domain rules match
+only IP addresses. Making interception genuinely useful would require inspecting
+the TLS handshake to recover the destination name, so the two are one piece of
+work rather than two.
+
+### Reverse proxy and load balancing
+
+Squid can sit in front of web servers as an accelerator. It is a capable
+feature and an entirely different product from this one: every concept in this
+console — client networks, blocked destinations, who browsed where — describes
+outbound traffic. A reverse-proxy mode would need its own policy model,
+dashboard and health checks, sharing almost nothing with what is here.
+
+If that is what you need, we would rather point you at a tool built for it than
+half-build one.
 
 ## Not planned
 
