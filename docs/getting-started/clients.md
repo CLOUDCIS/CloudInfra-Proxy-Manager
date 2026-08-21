@@ -67,10 +67,22 @@ add an access rule permitting their network before configuring them.
 
 === "Firefox"
 
-    Firefox keeps its own proxy settings rather than following the system.
+    Firefox defaults to **Use system proxy settings**, so on Windows it follows
+    the settings above and usually needs nothing done to it. Verified against a
+    current Firefox: a domain blocked at the proxy was blocked in Firefox
+    without touching its configuration.
 
-    **Settings → Network Settings → Manual proxy configuration**, then tick
-    *Also use this proxy for HTTPS*.
+    It does keep its own settings, though, and they win where they differ. If
+    Firefox is not using the proxy when everything else is, check
+    **Settings → Network Settings** — someone may have set *No proxy* or a
+    manual configuration that points elsewhere.
+
+    One real difference on Windows: *Use system proxy settings* reads the
+    Internet Options settings, not the WinHTTP ones. A proxy configured only
+    with `netsh winhttp` will not reach Firefox.
+
+    To point it somewhere else deliberately: **Settings → Network Settings →
+    Manual proxy configuration**, then tick *Also use this proxy for HTTPS*.
 
 ## Environment variables
 
