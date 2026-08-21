@@ -194,9 +194,29 @@ applications.
 
 ## Confirming it works
 
-```bash
-curl -x http://10.20.1.4:3128 -I https://example.com
-```
+=== "Linux, macOS"
+
+    ```bash
+    curl -x http://10.20.1.4:3128 -I https://example.com
+    ```
+
+=== "Windows"
+
+    ```powershell
+    curl.exe -x http://10.20.1.4:3128 -I https://example.com
+    ```
+
+    **`curl.exe`, not `curl`.** Windows ships a real curl, but PowerShell
+    aliases the name `curl` to its own `Invoke-WebRequest`, which does not
+    understand `-x` and fails with a parameter error. It reads like the proxy
+    refused the request when nothing ever reached it. The `.exe` is what makes
+    PowerShell run the program rather than the alias.
+
+    ```powershell
+    Test-NetConnection 10.20.1.4 -Port 3128
+    ```
+
+    is the equivalent of `nc -zv` if you want to check the port on its own.
 
 Then check **Live Traffic** in the console. If the request is not there, it did
 not reach the proxy — look at the network path rather than at the proxy.

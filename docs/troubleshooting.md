@@ -43,15 +43,32 @@ firewall — and not the proxy. See
 
 From the client:
 
-```bash
-nc -zv 10.0.1.20 3128
-```
+=== "Linux, macOS"
+
+    ```bash
+    nc -zv 10.0.1.20 3128
+    ```
+
+=== "Windows"
+
+    ```powershell
+    Test-NetConnection 10.0.1.20 -Port 3128
+    ```
+
+    Read `TcpTestSucceeded` in the output.
 
 | Result | Meaning |
 |---|---|
 | `succeeded` | The network path is fine — the problem is above the network layer |
 | `timed out` | Blocked by a security group, NSG or firewall rule |
 | `refused` | Reached the host, but nothing is listening — back to step 1 |
+
+!!! warning "In PowerShell, write `curl.exe` rather than `curl`"
+    Every `curl` command on this page works on Windows, but PowerShell aliases
+    `curl` to `Invoke-WebRequest`, which does not understand `-x` and fails with
+    a parameter error rather than a proxy error. Diagnosing a proxy with the
+    wrong tool wastes a lot of time, because the failure looks like the thing
+    you are investigating.
 
 ## Reading the result codes
 
@@ -142,6 +159,55 @@ export no_proxy="localhost,127.0.0.1,169.254.169.254,.internal"
 
 This breaks IAM roles on AWS, managed identities on Azure and service accounts
 on Google Cloud, usually some time after the change that caused it.
+
+### Traffic stopped appearing, and the log files are empty
+
+Check whether the logs rotated recently:
+
+```bash
+sudo ls -l /var/log/squid/
+```
+
+If `access.log` is zero bytes while `access.log.1` is large and both share a
+timestamp, the files rotated but Squid did not reopen them — it is still writing
+into the renamed file, which nothing reads. The console shows no traffic, and
+the disk keeps filling behind a log that looks rotated.
+
+```bash
+sudo squid -k rotate
+```
+
+That reattaches it immediately, and traffic reappears. On images built before
+21 August 2026 this recurs at every rotation; a scheduled `squid -k rotate` is a
+reasonable stopgap until the appliance is replaced.
+
+### `NONE_NONE/000` entries from 127.0.0.1 in the access log
+
+```
+1787313003.942  0 127.0.0.1 NONE_NONE/000 0 - error:transaction-end-before-headers
+```
+
+This is the appliance checking itself. The health check opens a connection to
+the proxy port to confirm something is listening, then closes it without sending
+a request, and Squid logs that like any other transaction.
+
+Harmless, and expected at the health polling interval. Alongside it you will see
+successful `GET` requests to `squid-internal-mgr/info`, which is the console
+reading Cache Manager for the connection counts the access log cannot provide.
+
+Both stay in the native access log deliberately — when diagnosing the proxy they
+are exactly what you want to see — and neither is counted as customer traffic in
+the console's own analytics.
+
+### `WARNING: Ignoring 172.31.0.0/16 because it is already covered`
+
+Seen in `cache.log` on every start and reload, on AWS instances in a default
+VPC. It is Squid noting that first boot added your VPC's range to the client
+list when the shipped RFC1918 baseline already covered it.
+
+Harmless: the range is permitted either way, and detection deliberately widens
+the list rather than replacing it, so that an unreachable metadata service
+degrades to a working proxy rather than one that denies everyone.
 
 ### The disk is filling up
 
