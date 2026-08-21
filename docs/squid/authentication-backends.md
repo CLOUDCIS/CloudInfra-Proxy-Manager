@@ -181,6 +181,11 @@ good.
 curl -x http://alice:password@10.0.1.20:3128 -I https://example.com
 ```
 
+!!! tip "On Windows, run `curl.exe`"
+    PowerShell aliases the bare name `curl` to `Invoke-WebRequest`, which
+    does not understand `-x` and fails with a parameter error rather than a
+    proxy error. See [Confirming it works](../getting-started/clients.md#confirming-it-works).
+
 Without credentials you should get `407 Proxy Authentication Required`. The
 username then appears in the traffic log in place of the `-` shown for anonymous
 requests — see [Logs](../guide/logs.md).

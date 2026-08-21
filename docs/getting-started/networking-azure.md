@@ -141,6 +141,11 @@ curl -x http://10.0.1.20:3128 -I https://example.com
 curl -I https://example.com
 ```
 
+!!! tip "On Windows, run `curl.exe`"
+    PowerShell aliases the bare name `curl` to `Invoke-WebRequest`, which
+    does not understand `-x` and fails with a parameter error rather than a
+    proxy error. See [Confirming it works](clients.md#confirming-it-works).
+
 | Symptom | Look at |
 |---|---|
 | Connection times out | NSG rules, peering, routing |

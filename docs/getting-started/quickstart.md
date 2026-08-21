@@ -90,9 +90,22 @@ A brand-new appliance with no traffic yet is normal and still scores 100.
 
 From a machine that can reach the proxy:
 
-```bash
-curl -x http://<instance-ip>:3128 -I https://example.com
-```
+=== "Linux, macOS"
+
+    ```bash
+    curl -x http://<instance-ip>:3128 -I https://example.com
+    ```
+
+=== "Windows"
+
+    ```powershell
+    curl.exe -x http://<instance-ip>:3128 -I https://example.com
+    ```
+
+    **`curl.exe`, not `curl`.** Windows ships a real curl, but PowerShell
+    aliases the bare name to its own `Invoke-WebRequest`, which does not
+    understand `-x` and fails with a parameter error. That reads like the proxy
+    rejecting you, when nothing reached it at all.
 
 You should get `HTTP/1.1 200 OK` (or `200 Connection established` for the
 tunnel). Now go to **Live Traffic** in the console — your request is there,
@@ -130,9 +143,17 @@ Press **Apply changes** and watch it run through the steps.
 
 Now test it:
 
-```bash
-curl -x http://<instance-ip>:3128 -I https://facebook.com
-```
+=== "Linux, macOS"
+
+    ```bash
+    curl -x http://<instance-ip>:3128 -I https://facebook.com
+    ```
+
+=== "Windows"
+
+    ```powershell
+    curl.exe -x http://<instance-ip>:3128 -I https://facebook.com
+    ```
 
 You get `403 Forbidden`. Go to **Live Traffic**, click the blocked request, and
 the detail panel names the rule that blocked it — not just that something did.
