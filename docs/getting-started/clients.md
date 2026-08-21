@@ -89,6 +89,31 @@ export no_proxy="localhost,127.0.0.1,169.254.169.254,.internal"
     proxy breaks instance credentials and role assumption in ways that are
     unpleasant to debug. Put it in `no_proxy` on every cloud instance.
 
+!!! warning "Exclude the appliance's own address too"
+    Once a machine is configured to use the proxy, the management console is
+    reached *through* it as well — and the console runs on 8443, which the proxy
+    refuses to tunnel. `SSL_ports` permits 443 only, so `CONNECT` to any other
+    port is denied.
+
+    The symptom is a console that half works: pages already loaded keep
+    rendering, and the next action fails with a bare **"Failed to fetch"** and
+    nothing in the console's own log, because the request never reached it.
+
+    Add the appliance to the bypass list on any machine you administer it from:
+
+    ```bash
+    export no_proxy="localhost,127.0.0.1,169.254.169.254,.internal,10.20.1.4"
+    ```
+
+    On Windows, add it to the bypass list rather than relying on
+    *Don't use the proxy server for local addresses* — that setting exempts
+    names without dots, not private IP addresses.
+
+    This is worth doing on principle rather than as a workaround. Management
+    traffic should not depend on the thing it manages: route the console through
+    Squid and you lose the console whenever Squid is unhealthy, which is exactly
+    when you need it.
+
 Make it permanent in `/etc/environment`, or for one service:
 
 ```ini title="/etc/systemd/system/myapp.service.d/proxy.conf"
