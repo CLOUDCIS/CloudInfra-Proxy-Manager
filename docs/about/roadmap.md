@@ -29,6 +29,25 @@ the appliance reports its state accurately and waits for you to look.
 **Scheduled and richer reporting.** PDF alongside CSV, and reports that arrive
 by email rather than being fetched.
 
+**A maintained list of AI tools.** Plenty of organisations now have a policy on
+staff pasting company data into a chatbot, and no way to enforce it. Microsoft
+365 endpoints already arrive as a list the appliance keeps current; AI services
+would arrive the same way, so blocking them is one rule against a list rather
+than a domain list somebody has to maintain by hand.
+
+The plan is more than one list, because these are different problems. Stopping
+people using a chatbot in a browser and stopping an application calling a
+model's API want different rules, and assistants built into Microsoft 365 or
+Google Workspace want a third — blocking those conflicts directly with
+allowlisting the suite they live inside, and that is a choice to put in front of
+you rather than make for you.
+
+Two things worth saying plainly. Nobody publishes an authoritative list of AI
+services the way Microsoft publishes its endpoints, so this one would be
+maintained by us, and we would rather commit to that openly than imply coverage
+we cannot keep current. And domain blocking is not airtight here: it stops the
+obvious routes, not a determined person on a personal device.
+
 **Choosing what to cache.** Proxy Settings controls the size and shape of the
 cache — on or off, disk, memory, maximum object size — but not which content is
 cached or for how long. That is `refresh_pattern`, and it is currently identical
