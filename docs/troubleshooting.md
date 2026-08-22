@@ -43,12 +43,6 @@ firewall — and not the proxy. See
 
 From the client:
 
-=== "Linux, macOS"
-
-    ```bash
-    nc -zv 10.0.1.20 3128
-    ```
-
 === "Windows"
 
     ```powershell
@@ -56,6 +50,12 @@ From the client:
     ```
 
     Read `TcpTestSucceeded` in the output.
+
+=== "Linux, macOS"
+
+    ```bash
+    nc -zv 10.0.1.20 3128
+    ```
 
 | Result | Meaning |
 |---|---|

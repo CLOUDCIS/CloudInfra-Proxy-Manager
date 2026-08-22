@@ -194,12 +194,6 @@ applications.
 
 ## Confirming it works
 
-=== "Linux, macOS"
-
-    ```bash
-    curl -x http://10.20.1.4:3128 -I https://example.com
-    ```
-
 === "Windows"
 
     ```powershell
@@ -217,6 +211,12 @@ applications.
     ```
 
     is the equivalent of `nc -zv` if you want to check the port on its own.
+
+=== "Linux, macOS"
+
+    ```bash
+    curl -x http://10.20.1.4:3128 -I https://example.com
+    ```
 
 Then check **Live Traffic** in the console. If the request is not there, it did
 not reach the proxy — look at the network path rather than at the proxy.
