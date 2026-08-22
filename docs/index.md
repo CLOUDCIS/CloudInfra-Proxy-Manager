@@ -21,6 +21,7 @@ Everything runs on your own instance. No traffic data leaves your network, and
 there is no cloud service to depend on.
 
 [Just launched? Start here :material-arrow-right:](getting-started/quickstart.md){ .md-button .md-button--primary }
+[Deploy Solution :material-cloud-download:](https://cloudinfrastructureservices.co.uk/squid-proxy-server/){ .md-button target="_blank" rel="noopener" }
 [How it works :material-sitemap:](about/architecture.md){ .md-button }
 [Security model :material-shield-lock:](about/security-model.md){ .md-button }
 
@@ -165,4 +166,4 @@ console stops, Squid keeps proxying, and if Squid stops, the console still comes
 up to tell you why.
 
 [Deploy the image :material-arrow-right:](getting-started/deploy.md){ .md-button .md-button--primary }
-[View our images :material-open-in-new:](https://cloudinfrastructureservices.co.uk/){ .md-button target="_blank" rel="noopener" }
+[Deploy Solution :material-cloud-download:](https://cloudinfrastructureservices.co.uk/squid-proxy-server/){ .md-button target="_blank" rel="noopener" }

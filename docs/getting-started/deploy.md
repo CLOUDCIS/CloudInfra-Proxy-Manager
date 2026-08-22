@@ -4,6 +4,12 @@ CloudInfra Proxy Manager ships as a pre-built marketplace image. There is
 nothing to install: launch it, open the console, and the proxy is already
 running.
 
+[Deploy Solution :material-cloud-download:](https://cloudinfrastructureservices.co.uk/squid-proxy-server/){ .md-button .md-button--primary target="_blank" rel="noopener" }
+
+The product page carries the marketplace links for each cloud. The rest of this
+page is what to settle before you launch — instance size, where to put it, and
+which ports to open — and what the appliance does for itself on first boot.
+
 ## What you are launching
 
 | | |
