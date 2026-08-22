@@ -29,24 +29,36 @@ the appliance reports its state accurately and waits for you to look.
 **Scheduled and richer reporting.** PDF alongside CSV, and reports that arrive
 by email rather than being fetched.
 
-**A maintained list of AI tools.** Plenty of organisations now have a policy on
-staff pasting company data into a chatbot, and no way to enforce it. Microsoft
-365 endpoints already arrive as a list the appliance keeps current; AI services
-would arrive the same way, so blocking them is one rule against a list rather
-than a domain list somebody has to maintain by hand.
+**Starter lists you own and edit.** You can already create a list called
+"Social media" or "AI tools", paste domains into it and point a rule at it —
+that is what a list is. What you cannot do is start from anything: a new
+appliance gives you an empty screen and the job of finding every domain
+yourself.
 
-The plan is more than one list, because these are different problems. Stopping
-people using a chatbot in a browser and stopping an application calling a
-model's API want different rules, and assistants built into Microsoft 365 or
-Google Workspace want a third — blocking those conflicts directly with
-allowlisting the suite they live inside, and that is a choice to put in front of
-you rather than make for you.
+The plan is a set of starter lists to pick from — AI assistants, AI APIs, social
+media, streaming, file sharing and webmail among them — added when you choose
+them rather than dumped in on first boot. Once added they are **ordinary lists
+that belong to you**: edit them, add the service somebody signed up for last
+week, remove the one you actually permit.
 
-Two things worth saying plainly. Nobody publishes an authoritative list of AI
-services the way Microsoft publishes its endpoints, so this one would be
-maintained by us, and we would rather commit to that openly than imply coverage
-we cannot keep current. And domain blocking is not airtight here: it stops the
-obvious routes, not a determined person on a personal device.
+They deliberately do not update themselves. Nobody publishes an authoritative
+list of AI services the way Microsoft publishes its endpoints, and a list that
+silently changes what it blocks is worse than one you control. A starter is a
+head start, not a subscription, and it cannot quietly begin blocking something
+you rely on.
+
+**Copying a maintained list.** Microsoft 365 endpoints are maintained, because
+Microsoft genuinely publishes that feed and it genuinely changes. That also
+makes the list read-only, so there is no way to keep it and add a domain of your
+own. A "copy to my lists" action would take the current contents as a list you
+own, which then stops updating — and the console will say so plainly before you
+do it.
+
+Two notes on blocking AI specifically, since that is the case people ask about.
+Assistants built into Microsoft 365 or Google Workspace are the awkward ones:
+blocking Copilot conflicts with allowlisting the suite it lives inside, so it
+would be a separate starter rather than folded in with the rest. And domain
+blocking stops the obvious routes, not a determined person on a personal device.
 
 **Choosing what to cache.** Proxy Settings controls the size and shape of the
 cache — on or off, disk, memory, maximum object size — but not which content is
@@ -91,6 +103,11 @@ read-only for auditors — belongs with it.
 **Managed category feeds.** Subscribing to maintained lists of malware, phishing
 and content categories, in the same way
 [Microsoft 365 endpoints](../guide/microsoft-365.md) work now.
+
+This is a different thing from the starter lists above, and the difference is
+who keeps them current. A starter is a head start you then own and edit. A feed
+has to be right *today* — a phishing list a week out of date is close to
+useless — so it stays maintained, read-only, and refreshed without asking you.
 
 **SIEM forwarding.** Structured events to Microsoft Sentinel, Splunk or syslog.
 The traffic log is already a documented, machine-readable format, so this is
