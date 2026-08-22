@@ -29,6 +29,21 @@ the appliance reports its state accurately and waits for you to look.
 **Scheduled and richer reporting.** PDF alongside CSV, and reports that arrive
 by email rather than being fetched.
 
+**A dedicated security view.** Blocked requests, the clients being blocked most
+often, the destinations they are trying to reach, and failed sign-ins — on one
+page instead of spread across the dashboard, analytics and administration.
+
+Most of it is assembly: the console already counts blocks by client, domain and
+rule. The useful new part is ranking clients by how often they are blocked,
+which is how you notice a misconfigured host or somebody probing, and which no
+current screen surfaces. Failed sign-ins belong there too — a proxy block and an
+authentication failure are usually the same investigation, and today they are in
+different parts of the console.
+
+One honest constraint shapes it: individual requests are kept for three days
+while the per-client and per-domain totals go back ninety, so such a page shows
+recent detail against a longer trend rather than pretending to both at once.
+
 ## Further out
 
 **Central management of several appliances.** One console managing a fleet, with
