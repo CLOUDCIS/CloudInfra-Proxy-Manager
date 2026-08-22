@@ -96,6 +96,7 @@ nav:
       - HTTPS and CONNECT: squid/https-and-connect.md
       - Authentication Backends: squid/authentication-backends.md
       - Custom Block Page: squid/block-page.md
+      - Caching: squid/caching.md
       - IPv6: squid/ipv6.md
       - High Availability: squid/high-availability.md
   - Reference:

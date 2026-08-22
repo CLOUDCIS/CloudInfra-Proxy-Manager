@@ -29,6 +29,20 @@ the appliance reports its state accurately and waits for you to look.
 **Scheduled and richer reporting.** PDF alongside CSV, and reports that arrive
 by email rather than being fetched.
 
+**Choosing what to cache.** Proxy Settings controls the size and shape of the
+cache — on or off, disk, memory, maximum object size — but not which content is
+cached or for how long. That is `refresh_pattern`, and it is currently identical
+on every appliance.
+
+The case worth tuning for is a fleet downloading the same packages and updates,
+where holding package files for weeks and keeping repository metadata fresh are
+opposite requirements. Both are a few lines of configuration, so the plan is a
+small set of choices in the console rather than a syntax editor.
+
+Until then it is [documented as a manual step](../squid/caching.md), including
+the trap that most Squid caching guides online use options this build
+deliberately does not have.
+
 **A dedicated security view.** Blocked requests, the clients being blocked most
 often, the destinations they are trying to reach, and failed sign-ins — on one
 page instead of spread across the dashboard, analytics and administration.

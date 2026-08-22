@@ -92,5 +92,6 @@ start — the three things the console exists to provide.
 | [HTTPS and CONNECT](https-and-connect.md) | What the proxy can and cannot see of encrypted traffic |
 | [Authentication Backends](authentication-backends.md) | RADIUS and local password files |
 | [Custom Block Page](block-page.md) | Showing your own page when a request is denied |
+| [Caching](caching.md) | What caches, tuning it for package repositories, and sizing |
 | [IPv6](ipv6.md) | Accepting IPv6 clients and reaching IPv6 destinations |
 | [High Availability](high-availability.md) | Running more than one proxy |
