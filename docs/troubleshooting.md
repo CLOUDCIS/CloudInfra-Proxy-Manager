@@ -99,6 +99,46 @@ Find the client address in the traffic log, then check it against **Proxy
 Settings → client networks**. An IPv6 client address here almost always means
 [IPv6](squid/ipv6.md).
 
+### Every client gets 403, and the client networks look right
+
+A different fault, and the giveaway is *every*. One client being refused is
+usually its address; the whole network being refused on an appliance that was
+working is not.
+
+It affects appliances built before this was fixed, and only after you have
+applied a change from the console. The image ships with the client-network
+allow in place, so a newly launched appliance proxies correctly — it is the
+first apply, replacing that configuration, that removes it.
+
+Check whether the generated configuration permits your networks:
+
+```bash
+sudo grep -c 'http_access allow localnet' /etc/squid/squid.conf
+```
+
+`1` means this is not your problem. `0` means the configuration defines your
+client networks but never permits them, so every request falls through to the
+default deny.
+
+Restore access with the override file, which is never generated and never
+overwritten:
+
+```bash
+echo 'http_access allow localnet' | sudo tee -a /etc/squid/local.conf
+sudo squid -k parse && sudo squid -k reconfigure
+```
+
+That survives later applies. Upgrade when a newer image is available — the fix
+is in the configuration generator — and the override is harmless to leave in
+place.
+
+!!! note "Why this was not obvious sooner"
+    The same appliances have a second fault that conceals the first: the
+    post-apply health probe cannot work out the appliance's own address, so
+    every apply fails verification and reverts. While that is happening the
+    broken configuration never reaches a running proxy, and what people report
+    is "my rule did not take effect" rather than a denial.
+
 ### HTTPS does not work but HTTP does
 
 Nearly always the client. Check that `https_proxy` is an `http://` URL:
