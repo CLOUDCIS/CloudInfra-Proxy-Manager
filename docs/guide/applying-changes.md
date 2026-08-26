@@ -161,6 +161,16 @@ cannot undo your edits.
     change. If validation fails on a change that looks innocuous, check
     `local.conf`.
 
+!!! warning "A workaround here outlives the problem"
+    Because this file is never overwritten, anything added to work around a
+    problem stays after the problem is fixed, and keeps taking effect. It is
+    included *above* the generated access rules, so an `http_access` line here
+    can override policy set in the console without appearing anywhere in it —
+    including one that would otherwise require users to sign in.
+
+    If a rule in the console does not behave the way it reads, check this file
+    first, and remove anything that is no longer earning its place.
+
 ## Related
 
 - [Access rules](access-rules.md) — what you are usually applying

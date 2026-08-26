@@ -65,10 +65,63 @@ you and the appliance. Compare it with what your browser shows.
 An expiring certificate is flagged at 30 days, and an expired one is reported as
 a problem — browsers will refuse the console entirely.
 
-!!! tip "Replacing the certificate"
-    Replace `/etc/cloudinfra/tls/cert.pem` and `/etc/cloudinfra/tls/key.pem`
-    with your own and restart the service. The console does not care where a
-    certificate came from, and this page will show yours instead.
+### Replacing the certificate
+
+**Install certificate**, on this page. Two files, both PEM:
+
+- **Certificate** — yours, or a chain with the leaf first followed by any
+  intermediates.
+- **Private key** — unencrypted, and belonging to that certificate.
+
+The pair is checked before anything is written. A key belonging to a different
+certificate, or one that has expired, is refused with the reason and nothing
+changes. What passes takes effect on the next connection: no restart, and your
+session stays signed in. Connections already open keep the previous certificate
+until they are reopened, so reload the page to see the new one.
+
+!!! tip "Include the intermediates"
+    A public authority gives you a leaf and one or two intermediate
+    certificates. Upload only the leaf and desktop browsers often still work,
+    because they cache intermediates from elsewhere, while phones and
+    command-line clients fail. Put them in one file, leaf first.
+
+**Generate a new self-signed certificate** replaces whatever is installed with
+one created here, covering this appliance's own hostname and addresses,
+including its public address. Browsers warn about it, but it always matches the
+appliance, so the console stays reachable.
+
+That is the way back. A certificate issued for a name this appliance cannot be
+reached by would otherwise leave nobody able to sign in and correct it.
+
+### Removing the browser warning
+
+Two things must both be true before a browser stops warning: the certificate
+must come from an authority the browser already trusts, and the name in the
+address bar must appear in the certificate.
+
+The certificate generated on the appliance fails both. It is self-signed, and it
+covers the appliance's own hostname and addresses, which is rarely what anyone
+types.
+
+1. **Give the appliance a DNS name**, such as `proxy.example.com`. This is the
+   step people skip, and without it the rest cannot work — public authorities do
+   not issue certificates for IP addresses.
+2. **Get a certificate for that name**, from a public authority or from your own
+   internal one. An internal authority is usually already trusted on managed
+   machines, and is the natural choice for a console only reachable internally.
+3. **Install it** here.
+4. **Reach the console by that name**, not by its address. A certificate for
+   `proxy.example.com` still warns if you browse to the IP.
+
+!!! note "Renewal is manual"
+    There is no ACME client on the appliance. A certificate from Let's Encrypt
+    expires every 90 days and has to be uploaded again each time. A longer-lived
+    certificate from an internal authority is far less trouble for an appliance.
+
+!!! tip "For a handful of administrators"
+    You do not need an authority at all. Export the appliance's own certificate
+    and add it to those machines' trust stores. The fingerprint above is how you
+    confirm you are trusting the right one.
 
 ### Protections
 

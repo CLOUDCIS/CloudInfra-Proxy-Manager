@@ -82,16 +82,47 @@ you can prepare the configuration and enable it as a separate, deliberate step.
 | Field | Notes |
 |---|---|
 | **Server** | One or more hostnames, space-separated. Squid tries each in turn — this is the only failover available. |
-| **Port** | 636 with TLS, 389 without. |
+| **Port** | 636 for LDAPS, 389 for StartTLS or for no encryption at all. |
 | **Require TLS** | Leave this on. |
 
 !!! danger "Do not turn TLS off"
     Without TLS the service account password crosses your network in clear text
     on every lookup.
 
-    With TLS on, the console passes Squid's strict flag, which **fails** if TLS
-    cannot be established rather than silently continuing unencrypted. That
-    difference is the whole point of the setting.
+The port decides *how* the connection is encrypted, and the two are not
+interchangeable:
+
+- **636** is LDAPS. The connection is encrypted from its first byte.
+- **389 with TLS** is StartTLS, which begins in the clear and upgrades. The
+  console requires that upgrade to succeed rather than letting it fall back to
+  plaintext, which is the whole point of the setting.
+
+Either way, the certificate your directory presents has to be trusted by this
+appliance.
+
+### Trusting your directory's certificate
+
+Most directories present a certificate issued by the organisation's own
+certificate authority. Until that authority is trusted here, the appliance
+refuses the connection and **every sign-in fails**.
+
+**Directory CA** on this page → **Install certificate**. Upload the issuing
+authority's certificate in PEM format — not the certificate belonging to the
+directory server itself.
+
+Once installed, the panel reports what is trusted: who it was issued to and by,
+when it expires, and its SHA-256 fingerprint. It takes effect on the next lookup
+and is deliberately not part of a staged change, so a failing connection can be
+fixed without applying anything else.
+
+!!! tip "What is accepted"
+    Certificates only. A private key pasted in by mistake, or a truncated file,
+    is refused with the reason rather than half-installed.
+
+!!! note "What an untrusted authority looks like"
+    Sign-ins fail for everybody, including accounts you know are correct, and
+    clients see `407` rather than any error naming a certificate. If
+    authentication worked before you turned TLS on, check this first.
 
 ### Finding users
 
@@ -179,6 +210,9 @@ Once enabled, [access rules](access-rules.md) can use:
 - **Directory group** — matches members of a directory group.
 
 > **Allow** members of `Sales` to reach `dropbox.com` at all times.
+
+Spaces are fine. `Domain Admins` and `Sales EMEA` work as written, with no
+quoting or escaping.
 
 Usernames and group names cannot contain brackets, asterisks, backslashes,
 quotes or line breaks. Those characters have meaning in LDAP filters, and a

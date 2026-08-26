@@ -128,9 +128,27 @@ echo 'http_access allow localnet' | sudo tee -a /etc/squid/local.conf
 sudo squid -k parse && sudo squid -k reconfigure
 ```
 
-That survives later applies. Upgrade when a newer image is available — the fix
-is in the configuration generator — and the override is harmless to leave in
-place.
+That survives later applies, which is what makes it a usable stopgap. Upgrade
+when a newer image is available: the fix is in the configuration generator.
+
+!!! danger "Remove the override once you have upgraded"
+    It is not harmless to leave behind. `local.conf` is included *above* the
+    generated access rules, so this line allows the whole client network before
+    any of them are considered — including the rule that requires users to sign
+    in. On an upgraded appliance with directory authentication switched on, an
+    override left in place lets every client through **without credentials**,
+    and nothing in the console shows it.
+
+    ```bash
+    sudo sed -i '/^http_access allow localnet$/d' /etc/squid/local.conf
+    sudo squid -k parse && sudo squid -k reconfigure
+    ```
+
+    Then confirm the generated configuration carries the allow itself:
+
+    ```bash
+    grep -c 'http_access allow localnet' /etc/squid/squid.conf   # expect 1
+    ```
 
 !!! note "Why this was not obvious sooner"
     The same appliances have a second fault that conceals the first: the
