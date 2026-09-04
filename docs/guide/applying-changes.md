@@ -57,6 +57,11 @@ Squid will not load it, this step says so and nothing further happens.
 A failure here is completely safe. The proxy is still running the previous
 configuration and has not been touched.
 
+When the fault comes from one of your rules, the message names it — the rule's
+number and the name you gave it — rather than only quoting the line Squid
+objected to. On a configuration with dozens of rules that is the difference
+between an edit and a search.
+
 ### Reload or restart
 
 Most changes apply without dropping a single connection. Some cannot: changing

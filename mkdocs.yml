@@ -8,15 +8,9 @@ site_author: InfraSOS FZCO
 site_url: https://proxydocs.cloudinfrastructureservices.co.uk/
 copyright: Copyright &copy; 2026 InfraSOS FZCO - CloudInfra Proxy Manager
 
-repo_url: https://github.com/CLOUDCIS/CloudInfra-Proxy-Manager
-repo_name: CLOUDCIS/CloudInfra-Proxy-Manager
-edit_uri: edit/main/docs/
-
 theme:
   name: material
   language: en
-  icon:
-    repo: fontawesome/brands/github
   features:
     - navigation.tabs
     - navigation.sections

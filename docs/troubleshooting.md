@@ -182,6 +182,19 @@ Check in this order:
 4. **Does the domain have a leading dot?** `example.com` matches only that exact
    name; `.example.com` matches subdomains too.
 
+### An apply is refused before anything changes
+
+The **Validate** step runs Squid's own parser over the staged configuration, so
+a refusal here means the proxy is untouched and still serving the previous
+configuration. Nothing is broken and nothing needs restoring.
+
+Read the message: where the fault comes from one of your rules it names that
+rule, so go to it, correct it, and apply again. Until it is corrected no other
+change can be applied either, because every apply stages the whole
+configuration — so fix it rather than working around it.
+
+See [Applying Changes](guide/applying-changes.md) for what each step does.
+
 ### An HTTPS site cannot be blocked by path
 
 Expected, and not fixable by configuration. The path is inside the encrypted

@@ -26,6 +26,12 @@ created. You confirm a decision, not a configuration fragment.
     Only *Always* is available in this release. The field exists so that
     time-based policies later need no migration of your existing rules.
 
+!!! tip "To mean everywhere, use Any"
+    *Any client* and *Anywhere* are how you say "everything". Do not write
+    `0.0.0.0/0` in a network field: the proxy engine refuses that value
+    outright, so the console refuses it too and tells you to use Any instead.
+    Every other network works normally, `::/0` included.
+
 ## Order matters
 
 Squid evaluates rules top to bottom and **stops at the first match**. So a broad
